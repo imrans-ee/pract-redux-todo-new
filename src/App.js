@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { addItem } from './action'
+import { deleteItem } from './action'
 
-function App() {
+const App = () => {
+
+const [input,setInput] = useState('');
+
+  const dispatch = useDispatch();
+
+  const items = useSelector(state => state.todoReducer.data);
+
+  console.log(input)
+  console.log(items)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <input type="text" placeholder='enter item' onChange={e => setInput(e.target.value) }/>
+
+      <button onClick={()=> dispatch(addItem(input)) }>add item</button>
+
+      {
+        items.map((e,ind)=>{
+          return <h1 key={ind}>{e} <button onClick={()=>dispatch(deleteItem(ind))}>X</button></h1>
+        })
+      }
+    
+    </>
+  )
 }
 
-export default App;
+export default App
