@@ -1,5 +1,6 @@
 const initialData ={
-    data:[]
+    data:[],
+   
 }
 
 const todoReducer = (state=initialData,action)=>{
